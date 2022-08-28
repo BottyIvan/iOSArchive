@@ -35,13 +35,11 @@ import SwiftUI
 struct archiveApp: App {
     
     @StateObject var authenticator = Authenticator()
-    @StateObject var utilFetchData = UtilFetchData()
     
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environmentObject(authenticator)
-                .environmentObject(utilFetchData)
         }
     }
 }

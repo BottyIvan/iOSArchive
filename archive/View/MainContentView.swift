@@ -12,7 +12,6 @@ struct MainContentView: View {
     
     // classi + metodi d'ambiente
     @EnvironmentObject var authenticator: Authenticator
-    @EnvironmentObject var utilFetchData: UtilFetchData
     
     @Environment(\.colorScheme) var colorScheme
     let darkGreyColor = Color(red: 29.0/255.0, green: 27.0/255.0, blue: 30.0/255.0, opacity: 1.0)
@@ -22,7 +21,14 @@ struct MainContentView: View {
     
     @State private var searchText = ""
     
+    let defaults = UserDefaults.standard
+    
+    @State var results = [Item]()
+    
     var body: some View {
+        
+        let username = defaults.string(forKey: "username") ?? "null"
+        let password = defaults.string(forKey: "password") ?? "null"
         
         ScrollView {
             VStack(spacing: 16) {
@@ -104,7 +110,31 @@ struct MainContentView: View {
                 print("caricata la view principale")
                 print(authenticator.needsAuthentication)
                 if (!authenticator.needsAuthentication) {
-                    utilFetchData.fetch_data(query: "all")
+//                    utilFetchData.fetch_data(query: "all")
+                    let request = MultipartFormDataRequest(url: URL(string: "https://www.thomasmaneggia.it/webservices/api.php")!)
+                    request.addTextField(named: "action", value: "fetch")
+                    request.addTextField(named: "all", value: "")
+                    request.addTextField(named: "username", value: username)
+                    request.addTextField(named: "password", value: password)
+                    let task = URLSession.shared.dataTask(with: request.asURLRequest()) { data, response, error in
+                        if let data = data {
+//                            print("il server ha restiutio la risposta")
+                            if let response = try? JSONDecoder().decode(Items.self, from: data) {
+//                                print(response)
+                                DispatchQueue.main.async {
+                                    self.results = response.item
+                                }
+                            }
+                            
+//                            do {
+//                                try JSONDecoder().decode(Items.self, from: data)
+//                            } catch let error {
+//                                print("errore !!!!!!!!!!!!")
+//                                print(error)
+//                            }
+                        }
+                    }
+                    task.resume()
                     print("caricati i dati")
                 }
             })
@@ -129,9 +159,9 @@ struct MainContentView: View {
     
     var filteredNameItem: [Item] {
         if searchText.isEmpty {
-            return utilFetchData.results
+            return results
         } else {
-            return utilFetchData.results.filter {
+            return results.filter {
                 $0.nameItem.localizedCaseInsensitiveContains(searchText)
             }
         }

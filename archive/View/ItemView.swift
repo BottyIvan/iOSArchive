@@ -15,7 +15,7 @@ struct ItemView: View {
     
     let defaults = UserDefaults.standard
     
-    @EnvironmentObject var utilFetchData: UtilFetchData
+    @State var results = [Item]()
     
     var article: Item
     
@@ -27,24 +27,27 @@ struct ItemView: View {
     @State var opacity: Double = 0
     
     @Environment(\.colorScheme) var colorScheme
-
+    
     var body: some View {
         
+        let username = defaults.string(forKey: "username") ?? "null"
+        let password = defaults.string(forKey: "password") ?? "null"
+        
         ScrollView(.vertical, showsIndicators: true, content: {
-//        List(content: {
+            //        List(content: {
             
             VStack(alignment: .leading, spacing: 0, content: {
                 VStack(content: {
                     GeometryReader { geometry in
-
+                        
                         if geometry.frame(in: .global).minY <= 0 {
                             
                             WebImage(url: URL(string: "https://www.thomasmaneggia.it/archivio/img"+article.imageItem))
                                 .resizable()
-                                 .aspectRatio(contentMode: .fill)
-                                 .frame(width: geometry.size.width, height: geometry.size.height)
-                                 .offset(y: geometry.frame(in: .global).minY/9)
-                                 .clipped()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: geometry.size.width, height: geometry.size.height)
+                                .offset(y: geometry.frame(in: .global).minY/9)
+                                .clipped()
                             
                         } else {
                             
@@ -55,7 +58,7 @@ struct ItemView: View {
                                 .clipped()
                                 .offset(y: -geometry.frame(in: .global).minY)
                         }
-
+                        
                     }
                     .frame(height: 400)
                     
@@ -69,7 +72,7 @@ struct ItemView: View {
                         ))
                         .frame(height: 400)
                 })
-//                .opacity(self.opacity)
+                //                .opacity(self.opacity)
             })
             
             VStack(alignment: .leading, spacing: 16, content: {
@@ -80,10 +83,10 @@ struct ItemView: View {
                         .padding()
                     Divider()
                 })
-//                .background(Color.cyan)
+                //                .background(Color.cyan)
                 .padding(.top, -20)
-
-
+                
+                
                 Text(article.descriptionItem)
                 Text("Costo: \(article.prizeItem)")
                 Text("Posizione: \(article.positionItem ?? "")")
@@ -94,12 +97,54 @@ struct ItemView: View {
             .padding()
             .background(colorScheme == .dark ? Color.black : Color.white)
             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-
-            VStack (alignment: .leading, spacing: 16, content: {
+            
+            VStack (alignment: .leading, spacing: 0, content: {
                 Text("Altri prodotti in \(article.typeItem)")
                     .fontWeight(.bold)
-                HStack(alignment: .center, spacing: 15, content: {
-
+                ScrollView(.horizontal, showsIndicators: false, content: {
+                    HStack(alignment: .center, spacing: 16, content: {
+                        ForEach (results, id: \.id) { itemList in
+                            VStack(alignment: .center, spacing: 10, content: {
+                                WebImage(url: URL(string: "https://www.thomasmaneggia.it/archivio/img"+itemList.imageItem))
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 150, height: 150)
+                                    .clipped()
+                                
+                                Text(itemList.nameItem)
+                            })
+                            .padding()
+                            .frame(width: 200, height: 200)
+                            .background(colorScheme == .dark ? darkGreyColor : Color.white)
+                        }
+                    })
+                })
+                .onAppear(perform: {
+                    let request = MultipartFormDataRequest(url: URL(string: "https://www.thomasmaneggia.it/webservices/api.php")!)
+                    request.addTextField(named: "action", value: "fetch")
+                    request.addTextField(named: "all", value: "")
+                    request.addTextField(named: "type", value: article.typeItem)
+                    request.addTextField(named: "username", value: username)
+                    request.addTextField(named: "password", value: password)
+                    let task = URLSession.shared.dataTask(with: request.asURLRequest()) { data, response, error in
+                        if let data = data {
+                            //                            print("il server ha restiutio la risposta")
+                            if let response = try? JSONDecoder().decode(Items.self, from: data) {
+                                //                                print(response)
+                                DispatchQueue.main.async {
+                                    self.results = response.item
+                                }
+                            }
+                            
+                            //                            do {
+                            //                                try JSONDecoder().decode(Items.self, from: data)
+                            //                            } catch let error {
+                            //                                print("errore !!!!!!!!!!!!")
+                            //                                print(error)
+                            //                            }
+                        }
+                    }
+                    task.resume()
                 })
                 .frame(width: UIScreen.main.bounds.width, height: 250)
             })

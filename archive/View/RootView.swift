@@ -10,7 +10,6 @@ import SwiftUI
 struct RootView: View {
     
     @EnvironmentObject var authenticator: Authenticator
-    @EnvironmentObject var utilFetchData: UtilFetchData
     
     let defaults = UserDefaults.standard
     
