@@ -148,7 +148,7 @@ struct MainContentView: View {
                         }
                         
                         Button(action: {authenticator.logout()}) {
-                            Label("Logout", systemImage: "square.and.pencil.circle.fill")
+                            Label("Logout", systemImage: "rectangle.portrait.and.arrow.forward")
                         }
                     }
                 label: {Label("Opzioni", systemImage: "ellipsis.circle")}

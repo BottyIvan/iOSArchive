@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct ItemView: View {
     
     let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
+    let whitesmokeColor = Color(red: 96.0/255.0, green: 96.0/255.0, blue: 95.0/255.0, opacity: 1.0)
     let darkGreyColor = Color(red: 29.0/255.0, green: 27.0/255.0, blue: 30.0/255.0, opacity: 1.0)
     
     let defaults = UserDefaults.standard
@@ -64,6 +65,16 @@ struct ItemView: View {
                     
                 })
                 .overlay(content: {
+                                    
+                    ZStack {
+                        Text(article.nameItem)
+                            .font(Font.title2.bold())
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .position(x: 208, y: 375)
+//                            .foregroundColor(.white)
+                    }
+                    
                     Rectangle()
                         .fill(LinearGradient(
                             gradient: .init(colors: [Self.gradientStart, Self.gradientEnd]),
@@ -76,16 +87,6 @@ struct ItemView: View {
             })
             
             VStack(alignment: .leading, spacing: 16, content: {
-                VStack(alignment: .leading, content: {
-                    Text(article.nameItem)
-                        .font(Font.title2.bold())
-                        .fontWeight(.bold)
-                        .padding()
-                    Divider()
-                })
-                //                .background(Color.cyan)
-                .padding(.top, -20)
-                
                 
                 Text(article.descriptionItem)
                 Text("Costo: \(article.prizeItem)")
@@ -93,29 +94,38 @@ struct ItemView: View {
                 Text("Quantità: \(article.quantityItem)")
                 Text("Codice: \(article.codeItem)")
                 Text("Disponibile: "+(article.availableItem ? "Sì" : "No"))
+                
             })
             .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
             .background(colorScheme == .dark ? Color.black : Color.white)
             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             
             VStack (alignment: .leading, spacing: 0, content: {
                 Text("Altri prodotti in \(article.typeItem)")
                     .fontWeight(.bold)
+                    .padding()
+                
                 ScrollView(.horizontal, showsIndicators: false, content: {
                     HStack(alignment: .center, spacing: 16, content: {
                         ForEach (results, id: \.id) { itemList in
-                            VStack(alignment: .center, spacing: 10, content: {
-                                WebImage(url: URL(string: "https://www.thomasmaneggia.it/archivio/img"+itemList.imageItem))
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 150, height: 150)
-                                    .clipped()
+                            NavigationLink(destination: ItemView(article: itemList), label: {
+                                VStack(alignment: .leading, spacing: 10, content: {
+                                    WebImage(url: URL(string: "https://www.thomasmaneggia.it/archivio/img"+itemList.imageItem))
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 150, height: 150)
+                                        .clipped()
+                                        .cornerRadius(10)
+                                    
+                                    Text(itemList.nameItem)
+                                        .foregroundColor(.black)
+                                    
+                                })
+                                .frame(width: 150, height: 200)
+                                .clipped()
                                 
-                                Text(itemList.nameItem)
                             })
-                            .padding()
-                            .frame(width: 200, height: 200)
-                            .background(colorScheme == .dark ? darkGreyColor : Color.white)
                         }
                     })
                 })
@@ -146,9 +156,14 @@ struct ItemView: View {
                     }
                     task.resume()
                 })
-                .frame(width: UIScreen.main.bounds.width, height: 250)
+                .frame(height: 200)
             })
             .background(colorScheme == .dark ? darkGreyColor : lightGreyColor)
+        })
+        .safeAreaInset(edge: .bottom, content: {
+            Rectangle()
+                .fill(.regularMaterial)
+                .frame(height: 25)
         })
         .edgesIgnoringSafeArea(.all)
         .navigationBarTitleDisplayMode(.inline)
