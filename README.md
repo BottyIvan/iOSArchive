@@ -28,7 +28,11 @@ if ($response['error'] == 0):
             require_once "method/fetch_all.php";
             break;
         case 'update':
-            require_once "method/update.php";    
+            require_once "method/update.php";
+            break;
+        case 'get_user':
+            require_once "method/get_user.php";
+            break;
         default:
             require_once "method/fetch_all.php";
             break;
@@ -94,8 +98,10 @@ How to Fetch data from APIs in SwiftUI : https://medium.com/swlh/fetch-data-from
 HTTP Post Requests in Swift for beginners : https://developer.apple.com/forums/thread/666662<br>
 NavigationLink View in .toolbar(...): unwanted nested child views on model change : https://www.hackingwithswift.com/forums/swiftui/navigationlink-view-in-toolbar-unwanted-nested-child-views-on-model-change/9844<br>
 Quick guide on toolbars in SwiftUI : https://tanaschita.com/20220509-quick-quide-on-toolbars-in-swiftui/<br>
-SOLVED: Swift ErrorNo exact matches in call to instance method 'appendInterpolation' : https://www.hackingwithswift.com/forums/swiftui/swift-error-no-exact-matches-in-call-to-instance-method-appendinterpolation/10472
+SOLVED: Swift ErrorNo exact matches in call to instance method 'appendInterpolation' : https://www.hackingwithswift.com/forums/swiftui/swift-error-no-exact-matches-in-call-to-instance-method-appendinterpolation/10472<br>
 How to format a TextField for numbers : https://www.hackingwithswift.com/quick-start/swiftui/how-to-format-a-textfield-for-numbers<br>
 How to create a toggle switch : https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-toggle-switch<br>
 Stretchy Header And Parallax Scrolling In SwiftUI : https://blckbirds.com/post/stretchy-header-and-parallax-scrolling-in-swiftui/<br>
 Adding settings to your iOS app : https://abhimuralidharan.medium.com/adding-settings-to-your-ios-app-cecef8c5497<br>
+Is there a way to create BottomBar using SwiftUI? : https://stackoverflow.com/questions/59335067/is-there-a-way-to-create-bottombar-using-swiftui<br>
+Formatting interpolated strings in SwiftUI : https://www.hackingwithswift.com/quick-start/swiftui/formatting-interpolated-strings-in-swiftui
