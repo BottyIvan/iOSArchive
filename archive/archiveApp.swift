@@ -27,6 +27,8 @@
 // How to create a toggle switch : https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-toggle-switch
 // Stretchy Header And Parallax Scrolling In SwiftUI : https://blckbirds.com/post/stretchy-header-and-parallax-scrolling-in-swiftui/
 // Adding settings to your iOS app : https://abhimuralidharan.medium.com/adding-settings-to-your-ios-app-cecef8c5497
+// Is there a way to create BottomBar using SwiftUI? : https://stackoverflow.com/questions/59335067/is-there-a-way-to-create-bottombar-using-swiftui
+// Formatting interpolated strings in SwiftUI : https://www.hackingwithswift.com/quick-start/swiftui/formatting-interpolated-strings-in-swiftui
 //
 
 import SwiftUI

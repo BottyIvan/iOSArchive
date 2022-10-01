@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct ItemView: View {
     
-    let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
+    let lightGreyColor = Color(red: 238.0/255.0, green: 237.0/255.0, blue: 240.0/255.0, opacity: 1.0)
     let whitesmokeColor = Color(red: 96.0/255.0, green: 96.0/255.0, blue: 95.0/255.0, opacity: 1.0)
     let darkGreyColor = Color(red: 29.0/255.0, green: 27.0/255.0, blue: 30.0/255.0, opacity: 1.0)
     
@@ -27,7 +27,18 @@ struct ItemView: View {
     
     @State var opacity: Double = 0
     
+    @State private var showingAlert = false
+    
     @Environment(\.colorScheme) var colorScheme
+    
+    var totalPrice: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+
+        let total = Double(article.prizeItem)
+
+        return formatter.string(from: NSNumber(value: total )) ?? "$0"
+    }
     
     var body: some View {
         
@@ -62,18 +73,16 @@ struct ItemView: View {
                         
                     }
                     .frame(height: 400)
+                    .background(.white)
                     
                 })
                 .overlay(content: {
-                                    
-                    ZStack {
-                        Text(article.nameItem)
-                            .font(Font.title2.bold())
-                            .fontWeight(.bold)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .position(x: 208, y: 375)
-//                            .foregroundColor(.white)
-                    }
+                    
+                    Text(article.nameItem)
+                        .font(.title.bold())
+                        .frame(width: .infinity, height: 400, alignment: .bottomLeading)
+                        .foregroundColor(.black)
+                        .padding(.bottom, 8)
                     
                     Rectangle()
                         .fill(LinearGradient(
@@ -83,16 +92,65 @@ struct ItemView: View {
                         ))
                         .frame(height: 400)
                 })
-                //                .opacity(self.opacity)
+                
             })
             
             VStack(alignment: .leading, spacing: 16, content: {
                 
+                HStack(content: {
+                    Spacer()
+                    Button() { // 👈 This argument
+                        let request = MultipartFormDataRequest(url: URL(string: "https://www.thomasmaneggia.it/webservices/api.php")!)
+                        request.addTextField(named: "action", value: "update")
+                        request.addTextField(named: "idItem", value: article.idItem)
+                        request.addTextField(named: "basket", value: (article.basketItem == "s" ? "n" : "s"))
+                        request.addTextField(named: "username", value: username)
+                        request.addTextField(named: "password", value: password)
+                        let task = URLSession.shared.dataTask(with: request.asURLRequest()) { data, response, error in
+                            if let data = data {
+                                if let response = try? JSONDecoder().decode(responseUpdateItem.self, from: data) {
+                                    if(response.mysql_error == 0) {
+                                        showingAlert = true
+                                    }
+                                }
+                            }
+                        }
+                        task.resume()
+                    } label: {
+                        Label((article.basketItem == "s" ? "Remove from Basket" : "Add to Basket"), systemImage: "basket")
+                    }
+                    .alert((article.basketItem == "s" ? "Removed successfully" : "Added successfully"), isPresented: $showingAlert) {Button("OK", role: .cancel) {}}
+                    .font(.headline.bold())
+                    .foregroundColor(.accentColor)
+                    .frame(height: 44)
+                    .frame(maxWidth: .infinity)
+                    .background(colorScheme == .dark ? darkGreyColor : lightGreyColor)
+                    .cornerRadius(8)
+                    
+                    Spacer()
+                    Button() { // 👈 This argument
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                    .font(.headline.bold())
+                    .foregroundColor(.accentColor)
+                    .frame(height: 44)
+                    .frame(maxWidth: .infinity)
+                    .background(colorScheme == .dark ? darkGreyColor : lightGreyColor)
+                    .cornerRadius(8)
+                    
+                    Spacer()
+                })
+                
+                Divider()
+                
                 Text(article.descriptionItem)
-                Text("Costo: \(article.prizeItem)")
-                Text("Posizione: \(article.positionItem ?? "")")
+                Text("Costo: \(totalPrice)")
+                Text("Posizione: \(article.positionItem ?? "N.D.")")
                 Text("Quantità: \(article.quantityItem)")
                 Text("Codice: \(article.codeItem)")
+                Text("Codice esterno: \(article.externalCode ?? "N.D.")")
+                Text("Stato: \(article.statusItem)")
                 Text("Disponibile: "+(article.availableItem ? "Sì" : "No"))
                 
             })
@@ -119,11 +177,10 @@ struct ItemView: View {
                                         .cornerRadius(10)
                                     
                                     Text(itemList.nameItem)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                     
                                 })
                                 .frame(width: 150, height: 200)
-                                .clipped()
                                 
                             })
                         }
@@ -132,7 +189,6 @@ struct ItemView: View {
                 .onAppear(perform: {
                     let request = MultipartFormDataRequest(url: URL(string: "https://www.thomasmaneggia.it/webservices/api.php")!)
                     request.addTextField(named: "action", value: "fetch")
-                    request.addTextField(named: "all", value: "")
                     request.addTextField(named: "type", value: article.typeItem)
                     request.addTextField(named: "username", value: username)
                     request.addTextField(named: "password", value: password)
@@ -140,7 +196,7 @@ struct ItemView: View {
                         if let data = data {
                             //                            print("il server ha restiutio la risposta")
                             if let response = try? JSONDecoder().decode(Items.self, from: data) {
-                                //                                print(response)
+                                print(response)
                                 DispatchQueue.main.async {
                                     self.results = response.item
                                 }
@@ -157,15 +213,12 @@ struct ItemView: View {
                     task.resume()
                 })
                 .frame(height: 200)
+                .padding()
+                .clipped()
             })
             .background(colorScheme == .dark ? darkGreyColor : lightGreyColor)
         })
-        .safeAreaInset(edge: .bottom, content: {
-            Rectangle()
-                .fill(.regularMaterial)
-                .frame(height: 25)
-        })
-        .edgesIgnoringSafeArea(.all)
+        .edgesIgnoringSafeArea(.top)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             

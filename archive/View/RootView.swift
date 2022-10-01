@@ -14,16 +14,56 @@ struct RootView: View {
     let defaults = UserDefaults.standard
     
     var body: some View {
-        NavigationView {
-            HStack() {
-                if (authenticator.needsAuthentication == false) {
-                    MainContentView()
+        
+        let username = defaults.string(forKey: "username") ?? "null"
+        
+        TabView {
+            NavigationView {
+                HStack() {
+                    if (authenticator.needsAuthentication == false) {
+                        MainContentView(toQuery: "home")
+                    }
+                }.sheet(isPresented: $authenticator.needsAuthentication) {
+                    LoginView()
+                        .environmentObject(authenticator) // see note
                 }
-            }.sheet(isPresented: $authenticator.needsAuthentication) {
-                LoginView()
-                    .environmentObject(authenticator) // see note
             }
-        }.navigationViewStyle(.stack)
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Image(systemName: "house")
+                Text("Home")
+            }
+            NavigationView {
+                HStack() {
+                    if (authenticator.needsAuthentication == false) {
+                        MainContentView(toQuery: "basket")
+                    }
+                }.sheet(isPresented: $authenticator.needsAuthentication) {
+                    LoginView()
+                        .environmentObject(authenticator) // see note
+                }
+            }
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Image(systemName: "basket")
+                Text("Basket")
+            }
+            NavigationView {
+                HStack() {
+                    if (authenticator.needsAuthentication == false) {
+                        UserView()
+                    }
+                }.sheet(isPresented: $authenticator.needsAuthentication) {
+                    LoginView()
+                        .environmentObject(authenticator) // see note
+                }
+            }
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Image(systemName: "person.crop.circle.fill")
+                Text("@\(username)")
+            }
+        }
     }
 }
 

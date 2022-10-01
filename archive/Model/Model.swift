@@ -32,6 +32,7 @@ struct Item: Codable {
     var statusItem: String
     var quantityItem: Int
     var positionItem: String? = ""
+    var externalCode: String? = ""
     var codeItem: String
     var availableItem: Bool
     var basketItem: String

@@ -25,6 +25,8 @@ struct MainContentView: View {
     
     @State var results = [Item]()
     
+    var toQuery: String = "home"
+    
     var body: some View {
         
         let username = defaults.string(forKey: "username") ?? "null"
@@ -110,28 +112,18 @@ struct MainContentView: View {
                 print("caricata la view principale")
                 print(authenticator.needsAuthentication)
                 if (!authenticator.needsAuthentication) {
-//                    utilFetchData.fetch_data(query: "all")
                     let request = MultipartFormDataRequest(url: URL(string: "https://www.thomasmaneggia.it/webservices/api.php")!)
                     request.addTextField(named: "action", value: "fetch")
-                    request.addTextField(named: "all", value: "")
+                    request.addTextField(named: toQuery, value: "true")
                     request.addTextField(named: "username", value: username)
                     request.addTextField(named: "password", value: password)
                     let task = URLSession.shared.dataTask(with: request.asURLRequest()) { data, response, error in
                         if let data = data {
-//                            print("il server ha restiutio la risposta")
                             if let response = try? JSONDecoder().decode(Items.self, from: data) {
-//                                print(response)
                                 DispatchQueue.main.async {
                                     self.results = response.item
                                 }
                             }
-                            
-//                            do {
-//                                try JSONDecoder().decode(Items.self, from: data)
-//                            } catch let error {
-//                                print("errore !!!!!!!!!!!!")
-//                                print(error)
-//                            }
                         }
                     }
                     task.resume()
@@ -139,7 +131,7 @@ struct MainContentView: View {
                 }
             })
             .frame(maxWidth: .infinity)
-            .navigationTitle("Home")
+            .navigationTitle(toQuery.capitalized)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Menu {

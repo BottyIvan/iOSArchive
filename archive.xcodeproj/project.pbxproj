@@ -16,7 +16,6 @@
 		810F405028A7F477005A1AE7 /* archiveUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F404F28A7F477005A1AE7 /* archiveUITestsLaunchTests.swift */; };
 		810F405D28A80154005A1AE7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F405C28A80154005A1AE7 /* Model.swift */; };
 		810F406128A8249B005A1AE7 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F406028A8249B005A1AE7 /* MainContentView.swift */; };
-		81239C1128AABA1100AEE6EB /* UtilFetchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81239C1028AABA1100AEE6EB /* UtilFetchData.swift */; };
 		8166BA4B28AC163900660EF1 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8166BA4A28AC163900660EF1 /* SDWebImageSwiftUI */; };
 		81C7ED4628AE7298005D75C2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 81C7ED4528AE7298005D75C2 /* Settings.bundle */; };
 		81C9E12428AD074D00061943 /* EditItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C9E12328AD074D00061943 /* EditItemView.swift */; };
@@ -24,6 +23,7 @@
 		81ECAE4E28AA6B1800EC4C5A /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ECAE4D28AA6B1800EC4C5A /* Authenticator.swift */; };
 		81ECAE5028AA6BEE00EC4C5A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ECAE4F28AA6BEE00EC4C5A /* RootView.swift */; };
 		81ECAE5228AA939400EC4C5A /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ECAE5128AA939400EC4C5A /* ItemView.swift */; };
+		81F2C24628E88BEF0093AC88 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F2C24528E88BEF0093AC88 /* UserView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,13 +56,13 @@
 		810F404F28A7F477005A1AE7 /* archiveUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = archiveUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		810F405C28A80154005A1AE7 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		810F406028A8249B005A1AE7 /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
-		81239C1028AABA1100AEE6EB /* UtilFetchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilFetchData.swift; sourceTree = "<group>"; };
 		81C7ED4528AE7298005D75C2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		81C9E12328AD074D00061943 /* EditItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemView.swift; sourceTree = "<group>"; };
 		81D5D62228B044E000E13FE8 /* MultipartFormDataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataRequest.swift; sourceTree = "<group>"; };
 		81ECAE4D28AA6B1800EC4C5A /* Authenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
 		81ECAE4F28AA6BEE00EC4C5A /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		81ECAE5128AA939400EC4C5A /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
+		81F2C24528E88BEF0093AC88 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +99,7 @@
 				810F403428A7F476005A1AE7 /* LoginView.swift */,
 				81ECAE5128AA939400EC4C5A /* ItemView.swift */,
 				81C9E12328AD074D00061943 /* EditItemView.swift */,
+				81F2C24528E88BEF0093AC88 /* UserView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -174,7 +175,6 @@
 			isa = PBXGroup;
 			children = (
 				81ECAE4D28AA6B1800EC4C5A /* Authenticator.swift */,
-				81239C1028AABA1100AEE6EB /* UtilFetchData.swift */,
 				81D5D62228B044E000E13FE8 /* MultipartFormDataRequest.swift */,
 			);
 			path = Utils;
@@ -317,7 +317,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81239C1128AABA1100AEE6EB /* UtilFetchData.swift in Sources */,
 				81ECAE4E28AA6B1800EC4C5A /* Authenticator.swift in Sources */,
 				810F405D28A80154005A1AE7 /* Model.swift in Sources */,
 				81ECAE5028AA6BEE00EC4C5A /* RootView.swift in Sources */,
@@ -325,6 +324,7 @@
 				81ECAE5228AA939400EC4C5A /* ItemView.swift in Sources */,
 				81D5D62328B044E000E13FE8 /* MultipartFormDataRequest.swift in Sources */,
 				810F403328A7F476005A1AE7 /* archiveApp.swift in Sources */,
+				81F2C24628E88BEF0093AC88 /* UserView.swift in Sources */,
 				810F406128A8249B005A1AE7 /* MainContentView.swift in Sources */,
 				81C9E12428AD074D00061943 /* EditItemView.swift in Sources */,
 			);
@@ -484,11 +484,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"archive/Preview Content\"";
 				DEVELOPMENT_TEAM = DY8J554MX2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Archive;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -515,11 +517,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"archive/Preview Content\"";
 				DEVELOPMENT_TEAM = DY8J554MX2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Archive;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

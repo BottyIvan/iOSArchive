@@ -17,23 +17,32 @@ struct LoginView: View {
     @State var username: String = ""
     @State var password: String = ""
     
+    @Environment(\.colorScheme) var colorScheme
+    
+    static let gradientStart = Color.white.opacity(0)
+    static let gradientEnd = Color.black.opacity(0.1)
+    
     @EnvironmentObject var authenticator: Authenticator
     
     var body: some View {
         VStack {
-            Text("Archive")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Text("by thaG33k")
-                .font(.footnote)
-                .fontWeight(.light)
-            TextField("Username", text: $username)
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
-                .textFieldStyle(.roundedBorder)
-            SecureField("Password", text: $password)
-                .textFieldStyle(.roundedBorder)
-            Text(authenticator.errorLoginMsg)
+            Spacer()
+            Group {
+                Image("logoApp")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .cornerRadius(16)
+                    .shadow(color: colorScheme == .dark ? .white.opacity(0.1) : .black.opacity(0.1), radius: 15, x: 0, y: 5)
+                Spacer()
+                TextField("Username", text: $username)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textFieldStyle(.roundedBorder)
+                SecureField("Password", text: $password)
+                    .textFieldStyle(.roundedBorder)
+                Text(authenticator.errorLoginMsg)
+            }
             HStack{
                 Spacer()
                 Button(authenticator.isAuthenticating ? "Please wait..." : "Log in") {
@@ -41,6 +50,8 @@ struct LoginView: View {
                 }
 //                .disabled(isLoginDisabled)
             }
+            Spacer()
+            Text("created with ❤️ in milan.")
         }
         .padding()
         .interactiveDismissDisabled(!termsAccepted)

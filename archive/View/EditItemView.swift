@@ -84,9 +84,6 @@ struct EditItemView: View {
                         task.resume()
                     })
                 }
-                ToolbarItem(placement: .destructiveAction) {
-                    Button("Delete", action: {})
-                }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", action: {
                         dismiss()
