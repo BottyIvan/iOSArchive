@@ -45,7 +45,7 @@ echo json_encode($response, JSON_PRETTY_PRINT);
 sample of the fetch case: method/fetch_all.php :
 <pre>
 $sql = "SELECT *,(SELECT image FROM archive_item_image WHERE id_archive = archive.id) AS image FROM archive";
-if(!isset($_POST['all'])):
+if(isset($_POST['search'])):
     switch($_POST['search']):
         case (is_numeric($_POST['search'])):
             $sql .= " WHERE id = ".$_POST['search'];
@@ -53,10 +53,11 @@ if(!isset($_POST['all'])):
         case (!is_numeric($_POST['search'])):
             $sql .= " WHERE name LIKE '%".$_POST['search']."%' OR description LIKE '%".$_POST['search']."%'";
             break;
-        case (!is_numeric($_POST['type'])):
-            $sql .= " WHERE type LIKE '".$_POST['type']."'";
-            break;
     endswitch;
+elseif(isset($_POST['type'])):
+    $sql .= " WHERE type LIKE '".$_POST['type']."'";
+elseif(isset($_POST['basket'])):
+    $sql .= " WHERE basket = 's'";
 endif;
 if ($sql != "" OR !is_null($sql)):
     $sql .= " ORDER BY date DESC";
@@ -73,6 +74,7 @@ while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)):
     $itmes['quantityItem'] = (Int) $row['quantity'];
     $itmes['positionItem'] = $row['position'];
     $itmes['codeItem'] = $row['item_code'];
+    $itmes['externalCode'] = $row['external_code'];
     $itmes['availableItem'] = (Bool) $row['available'];
     $itmes['basketItem'] = $row['basket'];
     $itmes['typeItem'] = $row['type'];
