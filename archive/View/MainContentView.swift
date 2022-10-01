@@ -27,6 +27,8 @@ struct MainContentView: View {
     
     var toQuery: String = "home"
     
+    @State private var showingAlert = false
+    
     var body: some View {
         
         let username = defaults.string(forKey: "username") ?? "null"
@@ -89,10 +91,27 @@ struct MainContentView: View {
                         .background(colorScheme == .dark ? darkGreyColor : Color.white)
                         .frame(maxWidth: UIScreen.main.bounds.width - 50, alignment: .leading)
                         .contextMenu {
-                            Button() { // 👈 This argument
+                            Button() {
+                                let request = MultipartFormDataRequest(url: URL(string: "https://www.thomasmaneggia.it/webservices/api.php")!)
+                                request.addTextField(named: "action", value: "update")
+                                request.addTextField(named: "idItem", value: item.idItem)
+                                request.addTextField(named: "basket", value: (item.basketItem == "s" ? "n" : "s"))
+                                request.addTextField(named: "username", value: username)
+                                request.addTextField(named: "password", value: password)
+                                let task = URLSession.shared.dataTask(with: request.asURLRequest()) { data, response, error in
+                                    if let data = data {
+                                        if let response = try? JSONDecoder().decode(responseUpdateItem.self, from: data) {
+                                            if(response.mysql_error == 0) {
+                                                showingAlert = true
+                                            }
+                                        }
+                                    }
+                                }
+                                task.resume()
                             } label: {
-                                Label("View", systemImage: "eye")
+                                Label((item.basketItem == "s" ? "Remove from Basket" : "Add to Basket"), systemImage: "basket")
                             }
+                            .alert((item.basketItem == "s" ? "Removed successfully" : "Added successfully"), isPresented: $showingAlert) {Button("OK", role: .cancel) {}}
                             Divider()
                             Button(role: .destructive) { // 👈 This argument
                                 // delete something
@@ -109,8 +128,6 @@ struct MainContentView: View {
             }
             .searchable(text: $searchText, prompt: "Search by name...")
             .onAppear(perform: {
-                print("caricata la view principale")
-                print(authenticator.needsAuthentication)
                 if (!authenticator.needsAuthentication) {
                     let request = MultipartFormDataRequest(url: URL(string: "https://www.thomasmaneggia.it/webservices/api.php")!)
                     request.addTextField(named: "action", value: "fetch")
@@ -123,11 +140,12 @@ struct MainContentView: View {
                                 DispatchQueue.main.async {
                                     self.results = response.item
                                 }
+                            } else {
+                                print(error ?? "")
                             }
                         }
                     }
                     task.resume()
-                    print("caricati i dati")
                 }
             })
             .frame(maxWidth: .infinity)
