@@ -13,6 +13,7 @@ struct AddProductView: View {
     
     @State var nameItem: String = ""
     @State var descriptionItem: String = ""
+    @State var typeItem: String = ""
     @State var prizeItem: Int = 0
     @State var quantityItem: Int = 0
     @State var codeItem: String = ""
@@ -33,6 +34,9 @@ struct AddProductView: View {
                         TextField("Titolo", text: $nameItem)
                         TextEditor(text: $descriptionItem)
                             .frame(maxHeight: 300)
+                    }
+                    Section(header: Text("Type")) {
+                        TextField("Tipo", text: $typeItem)
                     }
                     Section(header: Text("Costo")) {
                         TextField("Costo", value: $prizeItem, format: .number)
@@ -64,6 +68,7 @@ struct AddProductView: View {
                         request.addTextField(named: "password", value: password)
                         request.addTextField(named: "nameItem", value: nameItem)
                         request.addTextField(named: "descriptionItem", value: descriptionItem)
+                        request.addTextField(named: "typeItem", value: typeItem)
                         request.addTextField(named: "prizeItem", value: String(format: "%f", prizeItem))
                         request.addTextField(named: "quantityItem", value: String(quantityItem))
                         request.addTextField(named: "codeItem", value: codeItem)

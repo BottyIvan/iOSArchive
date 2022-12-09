@@ -156,13 +156,12 @@ struct MainContentView: View {
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
                         
-                        
-                        Button(action: {showingEditViewSheet.toggle()}) {
-                            Label("Aggiungi", systemImage: "plus.circle")
-                        }
-                        .sheet(isPresented: $showingEditViewSheet) {
-                            AddProductView()
-                        }
+//                        Button(action: {showingEditViewSheet.toggle()}) {
+//                            Label("Aggiungi", systemImage: "plus.circle")
+//                        }
+//                        .sheet(isPresented: $showingEditViewSheet) {
+//                            AddProductView()
+//                        }
                         
                         Button(action: {authenticator.logout()}) {
                             Label("Logout", systemImage: "rectangle.portrait.and.arrow.forward")
