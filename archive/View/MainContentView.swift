@@ -29,6 +29,8 @@ struct MainContentView: View {
     
     @State private var showingAlert = false
     
+    @State private var showingEditViewSheet = false
+    
     var body: some View {
         
         let username = defaults.string(forKey: "username") ?? "null"
@@ -153,8 +155,13 @@ struct MainContentView: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
-                        Button(action: {}) {
+                        
+                        
+                        Button(action: {showingEditViewSheet.toggle()}) {
                             Label("Aggiungi", systemImage: "plus.circle")
+                        }
+                        .sheet(isPresented: $showingEditViewSheet) {
+                            AddProductView()
                         }
                         
                         Button(action: {authenticator.logout()}) {

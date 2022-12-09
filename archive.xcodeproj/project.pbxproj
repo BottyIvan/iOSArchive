@@ -16,6 +16,7 @@
 		810F405028A7F477005A1AE7 /* archiveUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F404F28A7F477005A1AE7 /* archiveUITestsLaunchTests.swift */; };
 		810F405D28A80154005A1AE7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F405C28A80154005A1AE7 /* Model.swift */; };
 		810F406128A8249B005A1AE7 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F406028A8249B005A1AE7 /* MainContentView.swift */; };
+		811835DF294394170010A56D /* AddProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811835DE294394170010A56D /* AddProductView.swift */; };
 		8166BA4B28AC163900660EF1 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8166BA4A28AC163900660EF1 /* SDWebImageSwiftUI */; };
 		81C5F17E28E8C6A200BFE466 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81C5F17D28E8C6A200BFE466 /* Launch Screen.storyboard */; };
 		81C7ED4628AE7298005D75C2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 81C7ED4528AE7298005D75C2 /* Settings.bundle */; };
@@ -57,6 +58,7 @@
 		810F404F28A7F477005A1AE7 /* archiveUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = archiveUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		810F405C28A80154005A1AE7 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		810F406028A8249B005A1AE7 /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
+		811835DE294394170010A56D /* AddProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductView.swift; sourceTree = "<group>"; };
 		81C5F17D28E8C6A200BFE466 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		81C7ED4528AE7298005D75C2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		81C9E12328AD074D00061943 /* EditItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemView.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				81ECAE5128AA939400EC4C5A /* ItemView.swift */,
 				81C9E12328AD074D00061943 /* EditItemView.swift */,
 				81F2C24528E88BEF0093AC88 /* UserView.swift */,
+				811835DE294394170010A56D /* AddProductView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				81ECAE5028AA6BEE00EC4C5A /* RootView.swift in Sources */,
 				810F403528A7F476005A1AE7 /* LoginView.swift in Sources */,
 				81ECAE5228AA939400EC4C5A /* ItemView.swift in Sources */,
+				811835DF294394170010A56D /* AddProductView.swift in Sources */,
 				81D5D62328B044E000E13FE8 /* MultipartFormDataRequest.swift in Sources */,
 				810F403328A7F476005A1AE7 /* archiveApp.swift in Sources */,
 				81F2C24628E88BEF0093AC88 /* UserView.swift in Sources */,
