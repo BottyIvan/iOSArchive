@@ -33,6 +33,9 @@ if ($response['error'] == 0):
         case 'get_user':
             require_once "method/get_user.php";
             break;
+        case 'insert':
+            require_once "method/insert.php";
+            break;
         default:
             require_once "method/fetch_all.php";
             break;
