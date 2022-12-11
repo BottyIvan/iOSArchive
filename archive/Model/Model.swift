@@ -25,6 +25,12 @@ struct responseAddedItem: Codable  {
     let mysql_error: Int
 }
 
+struct responseDeleteItem: Codable  {
+    let msg: String
+    let error: Int
+    let mysql_error: Int
+}
+
 struct Items: Codable  {
     let item: [Item]
 }

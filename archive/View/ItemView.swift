@@ -119,7 +119,7 @@ struct ItemView: View {
                         }
                         task.resume()
                     } label: {
-                        Label((article.basketItem == "s" ? "Remove from Basket" : "Add to Basket"), systemImage: "basket")
+                        Label((article.basketItem == "s" ? "Remove it" : "Add to Basket"), systemImage: "basket")
                     }
                     .alert((article.basketItem == "s" ? "Removed successfully" : "Added successfully"), isPresented: $showingAlert) {Button("OK", role: .cancel) {}}
                     .font(.headline.bold())

@@ -28,6 +28,7 @@ struct RootView: View {
                         .environmentObject(authenticator) // see note
                 }
             }
+            .statusBarStyle(material: .regularMaterial)
             .navigationViewStyle(.stack)
             .tabItem {
                 Image(systemName: "house")

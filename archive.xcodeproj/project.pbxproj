@@ -18,6 +18,7 @@
 		810F406128A8249B005A1AE7 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F406028A8249B005A1AE7 /* MainContentView.swift */; };
 		811835DF294394170010A56D /* AddProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811835DE294394170010A56D /* AddProductView.swift */; };
 		8166BA4B28AC163900660EF1 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8166BA4A28AC163900660EF1 /* SDWebImageSwiftUI */; };
+		8181254229466DA600E21EEB /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8181254129466DA600E21EEB /* NavigationBarModifier.swift */; };
 		81C5F17E28E8C6A200BFE466 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81C5F17D28E8C6A200BFE466 /* Launch Screen.storyboard */; };
 		81C7ED4628AE7298005D75C2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 81C7ED4528AE7298005D75C2 /* Settings.bundle */; };
 		81C9E12428AD074D00061943 /* EditItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C9E12328AD074D00061943 /* EditItemView.swift */; };
@@ -59,6 +60,7 @@
 		810F405C28A80154005A1AE7 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		810F406028A8249B005A1AE7 /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
 		811835DE294394170010A56D /* AddProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductView.swift; sourceTree = "<group>"; };
+		8181254129466DA600E21EEB /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
 		81C5F17D28E8C6A200BFE466 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		81C7ED4528AE7298005D75C2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		81C9E12328AD074D00061943 /* EditItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemView.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			children = (
 				81ECAE4D28AA6B1800EC4C5A /* Authenticator.swift */,
 				81D5D62228B044E000E13FE8 /* MultipartFormDataRequest.swift */,
+				8181254129466DA600E21EEB /* NavigationBarModifier.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 			files = (
 				81ECAE4E28AA6B1800EC4C5A /* Authenticator.swift in Sources */,
 				810F405D28A80154005A1AE7 /* Model.swift in Sources */,
+				8181254229466DA600E21EEB /* NavigationBarModifier.swift in Sources */,
 				81ECAE5028AA6BEE00EC4C5A /* RootView.swift in Sources */,
 				810F403528A7F476005A1AE7 /* LoginView.swift in Sources */,
 				81ECAE5228AA939400EC4C5A /* ItemView.swift in Sources */,
