@@ -54,6 +54,8 @@ class Authenticator: ObservableObject {
                             UserDefaults.standard.set(username, forKey: "username")
                             UserDefaults.standard.set(password, forKey: "password")
                             
+                            UserDefaults.standard.set(msg.user_id, forKey: "user_id")
+                            
                             self.isAuthenticating = false
                             self.needsAuthentication = false
                             self.erroLogin = false
@@ -89,6 +91,7 @@ class Authenticator: ObservableObject {
         // rimuovo i dati utente + il successo del login
         UserDefaults.standard.removeObject(forKey: "username")
         UserDefaults.standard.removeObject(forKey: "password")
+        UserDefaults.standard.removeObject(forKey: "user_id")
         UserDefaults.standard.removeObject(forKey: "needsAuthentication")
     }
 }

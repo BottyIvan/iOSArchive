@@ -44,6 +44,7 @@ struct ItemView: View {
         
         let username = defaults.string(forKey: "username") ?? "null"
         let password = defaults.string(forKey: "password") ?? "null"
+        let user_id = defaults.string(forKey: "user_id") ?? "null"
         
         ScrollView(.vertical, showsIndicators: true, content: {
             //        List(content: {
@@ -106,6 +107,7 @@ struct ItemView: View {
                         request.addTextField(named: "basket", value: (article.basketItem == "s" ? "n" : "s"))
                         request.addTextField(named: "username", value: username)
                         request.addTextField(named: "password", value: password)
+                        request.addTextField(named: "user_id", value: user_id)
                         let task = URLSession.shared.dataTask(with: request.asURLRequest()) { data, response, error in
                             if let data = data {
                                 if let response = try? JSONDecoder().decode(responseUpdateItem.self, from: data) {
@@ -192,6 +194,7 @@ struct ItemView: View {
                     request.addTextField(named: "type", value: article.typeItem)
                     request.addTextField(named: "username", value: username)
                     request.addTextField(named: "password", value: password)
+                    request.addTextField(named: "user_id", value: user_id)
                     let task = URLSession.shared.dataTask(with: request.asURLRequest()) { data, response, error in
                         if let data = data {
                             //                            print("il server ha restiutio la risposta")

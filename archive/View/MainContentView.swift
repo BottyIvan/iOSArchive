@@ -29,12 +29,11 @@ struct MainContentView: View {
     
     @State private var showingAlert = false
     
-    @State private var showingEditViewSheet = false
-    
     var body: some View {
         
         let username = defaults.string(forKey: "username") ?? "null"
         let password = defaults.string(forKey: "password") ?? "null"
+        let user_id = defaults.string(forKey: "user_id") ?? "null"
         
         ScrollView {
             VStack(spacing: 16) {
@@ -136,6 +135,8 @@ struct MainContentView: View {
                     request.addTextField(named: toQuery, value: "true")
                     request.addTextField(named: "username", value: username)
                     request.addTextField(named: "password", value: password)
+                    request.addTextField(named: "user_id", value: user_id)
+                    print("ciaoooo")
                     let task = URLSession.shared.dataTask(with: request.asURLRequest()) { data, response, error in
                         if let data = data {
                             if let response = try? JSONDecoder().decode(Items.self, from: data) {
@@ -151,18 +152,10 @@ struct MainContentView: View {
                 }
             })
             .frame(maxWidth: .infinity)
-            .navigationTitle(toQuery.capitalized)
+            .navigationTitle("@\(username)'s \(toQuery)")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
-                        
-//                        Button(action: {showingEditViewSheet.toggle()}) {
-//                            Label("Aggiungi", systemImage: "plus.circle")
-//                        }
-//                        .sheet(isPresented: $showingEditViewSheet) {
-//                            AddProductView()
-//                        }
-                        
                         Button(action: {authenticator.logout()}) {
                             Label("Logout", systemImage: "rectangle.portrait.and.arrow.forward")
                         }

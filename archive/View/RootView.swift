@@ -51,6 +51,21 @@ struct RootView: View {
             NavigationView {
                 HStack() {
                     if (authenticator.needsAuthentication == false) {
+                        AddProductView()
+                    }
+                }.sheet(isPresented: $authenticator.needsAuthentication) {
+                    LoginView()
+                        .environmentObject(authenticator) // see note
+                }
+            }
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Image(systemName: "plus.circle.fill")
+                Text("Add to")
+            }
+            NavigationView {
+                HStack() {
+                    if (authenticator.needsAuthentication == false) {
                         UserView()
                     }
                 }.sheet(isPresented: $authenticator.needsAuthentication) {

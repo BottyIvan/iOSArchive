@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct AddProductView: View {
-    
-    @Environment(\.dismiss) var dismiss
-    
+
     @State var nameItem: String = ""
     @State var descriptionItem: String = ""
     @State var typeItem: String = ""
@@ -19,13 +17,16 @@ struct AddProductView: View {
     @State var codeItem: String = ""
     @State var availableItem: Bool = true
     
-        
     let defaults = UserDefaults.standard
     
+    @State private var showingAlert = false
+    @State var refresh: Bool = false
+
     var body: some View {
         
         let username = defaults.string(forKey: "username") ?? "null"
         let password = defaults.string(forKey: "password") ?? "null"
+        let user_id = defaults.string(forKey: "user_id") ?? "null"
         
         NavigationView {
             Form() {
@@ -66,6 +67,7 @@ struct AddProductView: View {
                         request.addTextField(named: "action", value: "insert")
                         request.addTextField(named: "username", value: username)
                         request.addTextField(named: "password", value: password)
+                        request.addTextField(named: "user_id", value: user_id)
                         request.addTextField(named: "nameItem", value: nameItem)
                         request.addTextField(named: "descriptionItem", value: descriptionItem)
                         request.addTextField(named: "typeItem", value: typeItem)
@@ -76,15 +78,15 @@ struct AddProductView: View {
                         let task = URLSession.shared.dataTask(with: request.asURLRequest()) { data, response, error in
                             if let data = data {
                                 print("il server ha restiutio la risposta")
-                                if let response = try? JSONDecoder().decode(responseUpdateItem.self, from: data) {
+                                if let response = try? JSONDecoder().decode(responseAddedItem.self, from: data) {
                                     print(response)
                                     if(response.mysql_error == 0) {
-                                        dismiss()
+                                        showingAlert = true
                                     }
                                 }
                                 
                                 do {
-                                    try JSONDecoder().decode(responseUpdateItem.self, from: data)
+                                    try JSONDecoder().decode(responseAddedItem.self, from: data)
                                 } catch let error {
                                     print("errore !!!!!!!!!!!!")
                                     print(error)
@@ -93,17 +95,17 @@ struct AddProductView: View {
                         }
                         task.resume()
                     })
-                }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel", action: {
-                        dismiss()
-                    })
+                    .alert("Added successfully", isPresented: $showingAlert) {Button("OK", role: .cancel) {update()}}
                 }
             }
-            .navigationTitle("Add product to your archive")
+            .navigationTitle("Add to @\(username) archive")
         }
         .interactiveDismissDisabled(true)
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    func update() {
+       refresh.toggle()
     }
 }
 

@@ -8,11 +8,18 @@
 import Foundation
 
 struct mUserProfile: Codable  {
+    let user_id: String
     let msg: String
     let error: Int
 }
 
 struct responseUpdateItem: Codable  {
+    let msg: String
+    let error: Int
+    let mysql_error: Int
+}
+
+struct responseAddedItem: Codable  {
     let msg: String
     let error: Int
     let mysql_error: Int

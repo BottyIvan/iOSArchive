@@ -16,6 +16,7 @@ struct LoginView: View {
         
     @State var username: String = ""
     @State var password: String = ""
+    @State var user_id: String = ""
     
     @Environment(\.colorScheme) var colorScheme
     
