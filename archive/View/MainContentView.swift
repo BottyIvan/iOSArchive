@@ -39,18 +39,19 @@ struct MainContentView: View {
             VStack(spacing: 16) {
                 HStack(spacing: 16) {
                     VStack(alignment: .leading) {
-                        Text(toQuery.uppercased())
+                        Text(Date(), style: .date)
                             .foregroundColor(.secondary)
                             .font(.subheadline.bold())
-                        Text("@\(username)")
+                            .textCase(.uppercase)
+                        Text(toQuery.capitalized)
                             .font(.largeTitle.bold())
                     }
                     Spacer()
                     VStack() {
                         Spacer()
-                        Image("userNoPhoto")
+                        WebImage(url: URL(string: "https://www.thomasmaneggia.it/archivio/img/user/\(user_id)/user_pic.jpeg"))
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                             .frame(width: 30, height: 30)
                             .cornerRadius(100)
                     }

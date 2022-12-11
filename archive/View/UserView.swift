@@ -18,15 +18,16 @@ struct UserView: View {
     var body: some View {
         
         let username = defaults.string(forKey: "username") ?? "null"
+        let user_id = defaults.string(forKey: "user_id") ?? "null"
         
         VStack(alignment: .leading, content: {
             List{
                 VStack(content: {
                     HStack{
                         Spacer()
-                        Image("userNoPhoto")
+                        WebImage(url: URL(string: "https://www.thomasmaneggia.it/archivio/img/user/\(user_id)/user_pic.jpeg"))
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                             .frame(width: 150, height: 150)
                             .cornerRadius(100)
                         Spacer()
